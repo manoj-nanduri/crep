@@ -4,7 +4,6 @@ import com.mn.crep.replayrequestprocessor.ReplayRequest;
 
 public class EventFactory {
 
-    // TO-DO:  If model is finalized, other Events like TradeEvent, InstrumentEvent can be handled here
     public static ReplayEvent createReplayEvent(ReplayRequest replayRequest) {
         switch (replayRequest.getReplayType()) {
             case CORRECTION:
