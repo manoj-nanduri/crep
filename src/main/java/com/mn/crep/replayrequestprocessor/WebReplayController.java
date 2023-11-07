@@ -5,7 +5,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,6 @@ import java.util.Set;
 
 @Controller
 public class WebReplayController {
-
     @Autowired
     private ReplayRequestProcessor replayRequestProcessor;
 
@@ -51,38 +49,6 @@ public class WebReplayController {
         return "redirect:/upload";
     }
 
-//    @PostMapping("/upload")
-//    public String processReplayRequests(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-//        try {
-//            Set<ReplayRequest> replayRequests = parseCsvFile(file);
-//            Object result = replayRequestProcessor.processReplayRequests(replayRequests);
-//
-//            redirectAttributes.addFlashAttribute("message", "Replay request submitted successfully.");
-//        } catch (InvalidFormatException e) {
-//            redirectAttributes.addFlashAttribute("error", "There was an issue processing your file: " + e.getMessage());
-//            return "redirect:/upload";
-//        }
-//        return "redirect:/upload";
-//    }
-//
-
-    /*
-        @PostMapping("/upload")
-        public String processReplayRequests(@RequestParam("file") MultipartFile file, Model model) {
-            try {
-                Set<ReplayRequest> replayRequests = parseCsvFile(file);
-                Object result = replayRequestProcessor.processReplayRequests(replayRequests);
-
-                // Handle the response
-                model.addAttribute("result", result);
-                return "result";
-            } catch (InvalidFormatException e) {
-                model.addAttribute("error", e.getMessage());
-                return "upload";
-            }
-        }
-    */
-
     private Set<ReplayRequest> parseCsvFile(MultipartFile file) throws InvalidFormatException {
         Set<ReplayRequest> replayRequests = new HashSet<>();
 
@@ -93,14 +59,12 @@ public class WebReplayController {
                 String messageTypeStr = record.get("MessageType");
                 String replayTypeStr = record.get("ReplayType");
 
-                // Validate the values are not empty or null
                 if (tradeID == null || tradeID.trim().isEmpty() ||
                         messageTypeStr == null || messageTypeStr.trim().isEmpty() ||
                         replayTypeStr == null || replayTypeStr.trim().isEmpty()) {
                     throw new InvalidFormatException("CSV file format is invalid. All fields must be present and not empty.");
                 }
 
-                // Convert the string values to enums
                 ReplayRequest.ReplayType replayType;
                 ReplayRequest.MessageType messageType;
                 try {
@@ -119,4 +83,3 @@ public class WebReplayController {
         return replayRequests;
     }
 }
-

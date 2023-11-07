@@ -6,7 +6,6 @@
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
-    <!-- Adding the test icon at the top of the page -->
     <header class="header">
         <img th:src="@{/images/test-icon.png}" alt="Test Icon" class="icon" />
         <h1>MOCK APP NAME</h1>
@@ -17,13 +16,13 @@
 
     <form id="upload-form" class="form-disabled" th:action="@{/upload}" method="post" enctype="multipart/form-data">
         <label for="file" class="custom-file-upload">Upload a CSV containing list of trade IDs for replay</label>
-        <!-- Input is disabled at the start -->
         <input id="file" type="file" name="file" disabled />
-        <a th:href="@{/files/ReplayTemplate.csv}" download="Sample_file_template.csv" style="display: block; text-align: left; margin-top: 10px; pointer-events: auto;">Sample file template</a>
-        <!-- Initial button text is "Upload" and is enabled -->
-        <button type="button" class="upload-btn">Upload</button>
-    </form>
 
+        <div class="form-controls">
+            <a th:href="@{/files/ReplayTemplate.csv}" download="ReplayTemplateFile.csv" class="download-link">Download Sample CSV File</a>
+            <button type="button" class="upload-btn">Upload</button>
+        </div>
+    </form>
     <script src="/script.js"></script>
 </body>
 </html>
