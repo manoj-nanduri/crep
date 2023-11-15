@@ -3,35 +3,42 @@ Mock code for ReplayService
 
 TEMP
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+CODE
+package event.config;
+
+import event.handler.EventHandler;
+import event.handler.ResendEventHandler;
+import event.handler.SimpleResendEventHandler;
+import event.publisher.EventPublisher;
+import event.publisher.ReplayEventPublisher;
+import event.publisher.SimpleReplayEventPublisher;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class EventConfiguration {
+public class EventConfig {
+
+    @Value("${application.event.mechanism}")
+    private String eventMechanism;
 
     @Bean
-    @ConditionalOnProperty(name = "events.implementation.type", havingValue = "spring-events")
-    public EventPublisher springEventPublisher() {
-        return new SpringEventPublisher();
+    public EventHandler resendEventHandler() {
+        if ("kafka".equals(eventMechanism)) {
+            return new ResendEventHandler();
+        } else {
+            return new SimpleResendEventHandler();
+        }
     }
 
     @Bean
-    @ConditionalOnProperty(name = "events.implementation.type", havingValue = "kafka")
-    public EventPublisher kafkaEventPublisher() {
-        return new KafkaEventPublisher();
-    }
-
-    @Bean
-    @ConditionalOnProperty(name = "events.implementation.type", havingValue = "spring-events")
-    public EventHandler springEventHandler() {
-        return new SpringEventHandler();
-    }
-
-    @Bean
-    @ConditionalOnProperty(name = "events.implementation.type", havingValue = "kafka")
-    public EventHandler kafkaEventHandler() {
-        return new KafkaEventHandler();
+    public EventPublisher replayEventPublisher() {
+        if ("kafka".equals(eventMechanism)) {
+            return new ReplayEventPublisher();
+        } else {
+            return new SimpleReplayEventPublisher();
+        }
     }
 }
+
 
