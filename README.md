@@ -6,6 +6,11 @@ TEMP
 CODE
 
 
+
+
+
+LOGIN.HTML
+------------------
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -24,5 +29,43 @@ CODE
 </body>
 </html>
 
+---------
+CSS
+---------
+.login-container {
+    width: 300px;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.login-container input {
+    margin: 10px;
+    padding: 10px;
+    width: 90%;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+
+--------
+Controller
+-----------
+@GetMapping("/login")
+public String login() {
+    return "login";
+}
+
+@PostMapping("/login")
+public String performLogin(@RequestParam String userId, @RequestParam String password, RedirectAttributes redirectAttributes) {
+    if (userId.equals(password)) {
+        return "redirect:/upload";
+    } else {
+        redirectAttributes.addFlashAttribute("error", "Invalid Credentials");
+        return "redirect:/login";
+    }
+}
 
 
