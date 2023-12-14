@@ -2,74 +2,74 @@
 Mock code for ReplayService
 
 USE CASES***************
-Internal Event Broker Use Cases and Requirements:
+Functional Requirements:
 
-Publish and Subscribe:
+Internal Message Broker:
 
-Use Case: Microservices need to publish events to notify other microservices about changes or events.
-Requirement: The internal event broker must support a publish-subscribe model for efficient communication between microservices.
-Event Enrichment:
+Publish Events:
 
-Use Case: The message enrichment engine enriches events before publishing them.
-Requirement: The broker should allow the integration of the enrichment engine to transform and enrich events before they are consumed.
-Scalability:
+Use Case: Microservices need to publish various types of events.
+Requirement: The broker must allow microservices to publish events to specific topics or channels.
+Subscribe to Events:
 
-Use Case: As the system grows, it should handle an increasing number of events without performance degradation.
-Requirement: The broker must be horizontally scalable to accommodate growing event volumes and consumer demands.
+Use Case: Microservices need to subscribe to events they are interested in.
+Requirement: The broker should support subscribing to events based on topic subscriptions.
+Message Enrichment:
+
+Use Case: Events should be enriched before publishing.
+Requirement: The broker must integrate with the message enrichment engine to transform and enrich events.
+Scalable Consumer Groups:
+
+Use Case: Multiple instances of a microservice may consume the same event type.
+Requirement: The broker should support scalable consumer groups to distribute events evenly among consumers.
+External Message Bus:
+
+High Throughput Messaging:
+
+Use Case: Multiple downstream systems require high throughput for message processing.
+Requirement: The message bus must handle high message throughput efficiently.
+Message Routing:
+
+Use Case: Different downstream systems have varying message requirements.
+Requirement: The message bus should allow routing and filtering of messages to target specific consumers.
+Consumer Scaling:
+
+Use Case: Downstream consumers need to scale dynamically based on workload.
+Requirement: The message bus should support dynamic scaling of consumers to handle changing message volumes.
+Message Acknowledgment:
+
+Use Case: Downstream consumers need to acknowledge successful message processing.
+Requirement: The message bus should support acknowledgment mechanisms to ensure message delivery and processing.
+Non-Functional Requirements:
+
+Internal Message Broker:
+
 Low Latency:
 
-Use Case: Real-time processing is critical for certain events.
-Requirement: The broker must provide low-latency event delivery to support real-time use cases.
+Use Case: Real-time processing is essential for certain microservices.
+Requirement: The broker must provide low-latency event delivery.
 Reliability and Durability:
 
 Use Case: Ensure no message loss even in the event of broker or node failures.
 Requirement: The broker should support message durability, replication, and fault tolerance.
 Message Ordering:
 
-Use Case: Maintaining the order of events is essential for specific business processes.
+Use Case: Maintaining the order of events is critical for specific business processes.
 Requirement: The broker should support ordered message delivery within specific topics or channels.
 Security:
 
 Use Case: Protect sensitive data and ensure secure communication.
 Requirement: Implement access control, authentication, and encryption features to ensure data security.
-Monitoring and Metrics:
+External Message Bus:
 
-Use Case: Continuous monitoring of broker health and performance.
-Requirement: Provide comprehensive monitoring and reporting capabilities, including metrics on message throughput, latency, and system health.
-Integration with Microservices:
+Scalability:
 
-Use Case: Integration with various programming languages and frameworks used by microservices.
-Requirement: Provide client libraries and SDKs for different programming languages to facilitate easy integration.
-Downstream Message Bus Use Cases and Requirements:
-
-High Throughput:
-
-Use Case: The downstream systems need to process millions of messages efficiently.
-Requirement: The message bus must handle high throughput and distribute messages efficiently to downstream consumers.
-Message Routing:
-
-Use Case: Different downstream systems have unique message requirements.
-Requirement: The message bus should support message routing and filtering to send messages to the appropriate consumers based on their needs.
-Consumer Scaling:
-
-Use Case: Scalability for downstream consumers.
-Requirement: The message bus should support dynamic scaling of consumers based on workload.
-Message Segmentation:
-
-Use Case: Different types of messages may require different handling.
-Requirement: Implement message segmentation or tagging to categorize and route messages effectively.
-Message Acknowledgment:
-
-Use Case: Downstream consumers need to acknowledge successful message processing.
-Requirement: The message bus should support acknowledgment mechanisms to ensure message delivery and processing.
+Use Case: The message bus must handle millions of messages daily.
+Requirement: The message bus must be horizontally scalable to accommodate growing event volumes.
 Dead Letter Queues:
 
 Use Case: Handle messages that couldn't be delivered to any consumer.
 Requirement: Implement dead letter queues to capture undeliverable or unprocessable messages for further analysis.
-Retry Mechanisms:
-
-Use Case: Handle transient failures in downstream systems.
-Requirement: Implement message retry mechanisms to handle transient errors in message processing.
 Backpressure Handling:
 
 Use Case: Prevent overwhelming downstream consumers with too many messages.
@@ -82,5 +82,3 @@ Integration with Downstream Systems:
 
 Use Case: Integration with various downstream systems, each with its own protocols.
 Requirement: Support multiple integration protocols and formats to accommodate various downstream consumers.
-
-
