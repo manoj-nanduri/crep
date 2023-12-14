@@ -1,6 +1,52 @@
 # crep
 Mock code for ReplayService
 
+
+PROCESS OUTLINE
+Define Requirements and Use Cases:
+
+Clearly define the requirements of your system.
+Identify the use cases and scenarios that the system needs to support.
+Understand the volume of events, throughput, latency, and scalability requirements.
+Select Candidate Technologies:
+
+Research and identify candidate technologies for your internal event broker (pub/sub system) and external message bus.
+Consider popular message brokers such as Apache Kafka, RabbitMQ, Apache Pulsar, and cloud-native solutions like AWS SNS/SQS, Azure Event Hubs, or Google Cloud Pub/Sub.
+Evaluate their features, performance, and suitability for your use case.
+POC Environment Setup:
+
+Set up a POC environment that mimics your production environment as closely as possible.
+Install and configure the selected technologies for both the internal event broker and external message bus.
+Message Enrichment Engine:
+
+Develop a simplified version of your message enrichment engine for testing purposes.
+Ensure it can consume events from the internal event broker, enrich them, and publish the enriched messages to the external message bus.
+Internal Event Broker POC:
+
+Implement a few microservices or components that generate and consume events using the selected internal event broker technology.
+Test the performance, scalability, and reliability of the internal event broker for handling internal communication.
+External Message Bus POC:
+
+Create downstream consumers that subscribe to messages from the external message bus.
+Test the ability of the message bus to handle a high volume of messages and distribute them to the appropriate consumers based on their requirements.
+Performance and Scalability Testing:
+
+Measure the performance metrics of both the internal event broker and external message bus under load.
+Ensure they meet your throughput and latency requirements.
+Fault Tolerance and Reliability:
+
+Introduce failure scenarios and test the fault tolerance and recovery mechanisms of both systems.
+Evaluate how well they handle network partitions, node failures, and data consistency.
+Monitoring and Logging:
+
+Implement monitoring and logging solutions to track the health and performance of the systems.
+Set up alerts and dashboards to detect and respond to issues.
+Security and Access Control:
+
+Ensure that both the internal event broker and external message bus have appropriate security mechanisms in place.
+Implement access control, authentication, and encryption.
+
+
 USE CASES***************
 Functional Requirements:
 
